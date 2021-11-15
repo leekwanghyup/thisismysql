@@ -136,6 +136,8 @@ INSERT INTO buytbl VALUES (NULL, 'BBK', '운동화', 'NULL', '30', '2');
 
 ### 6.1.2 특정 조건의 데이터만 조회하는 SELECT ... FROM ... WHERE
 
+<br>
+
 > WHERE
 - 이름이 김경호인 회원 조회
 ```SQL
@@ -149,10 +151,16 @@ select * from usertbl where `name`= '김경호';
 ```sql
 select * from usertbl where birthYear >= 1970 and height >= 182; 
 ```
+
+<br>
+
 - 1970년 이후에 출생했거나 신장이 182 이상인 사람의 아이디와 이름 조회
 ```sql
 select userId, `name` from usertbl where birthYear >= 1970 or height >= 182 
 ```
+
+<br>
+
 - 조건연산자와 관계연산자를 잘 조합함녀 다양한 조건의 쿼리문을 생성할 수 있다.
     + 조건연산자 : =, <, >, <=, >=, !=
     + 관계연산자 : NOT, AND, OR
@@ -168,12 +176,17 @@ select * from usertbl where height >=180 and height <= 183;
 select * from usertbl where height between 180 and 183; 
 ```
 
+<br>
+
 - 180과 183도 포함하는지 여부 
 - 다음 데이터를 삽입한 후 다시 조회해보자.
 ```SQL
 INSERT INTO usertbl VALUES ('LMB', '이명박', '1951', '경북', '011', '58584848', '183', '2013-02-01');
 INSERT INTO usertbl VALUES ('KYS', '김영삼', '1929', '경남', '010', '78786363', '180', '2022-01-05');
 ```
+
+<br>
+
 - 180과 183도 포함한다는 것을 알수 있다. 
 - 삽입한 데이터를 삭제하자. 
 ```sql
@@ -181,7 +194,7 @@ delete from usertbl where userId = 'KYS';
 delete from usertbl where userId = 'LMB';
 ```
 
-<BR>
+<br>
 
 - 지역이 '전북'이거나 '경남'인 회원의 정보를 조회하자.
 ```sql
@@ -191,14 +204,22 @@ select * from usertbl where addr = '경남' or addr = '전북' or addr = '경북
 select * from usertbl where addr in('경남','전북','경북');
 ```
 
+<br>
+
 - 문자열의 내용을 검색하기 위해 LIKE를 사용할 수 있다. 
 ```sql
 select * from usertbl where name like '김%'; 
 ```
+
+<br>
+
 - 맨 앞글자가 한 글자이고 그 다음이 '종신'인 사람을 검색해보자.
 ```sql
 select * from usertbl where name like '_종신'; 
 ```
+
+<br>
+
 - 참고 : %, _ 가 검색할 문자열의 제일 앞에 들어가면 Mysql 성능에 나쁜 영향을 끼칠 수 있다.
 - name열에 인덱스가 있더라도 인덱스를 사용하지 않고 데이터 전체를 검색하기 때문이다.
 
@@ -212,6 +233,9 @@ select * from usertbl where name like '_종신';
 select * from usertbl where name = '김경호'; 
 select * from usertbl where height > 177; 
 ```
+
+<br>
+
 - 이를 서브쿼리를 이용해서 나타내면 다음과 같다. 
 ```sql
 select * from usertbl where height > (
@@ -230,12 +254,18 @@ select * from usertbl where height >= (
     select height from usertbl where addr = '경남'
 );
 ```
+
+<br>
+
 - ANY를 사용하여 결과값을 확인하자.
 ```SQL
 select * from usertbl where height >= any (
     select height from usertbl where addr = '경남'
 );
 ```
+
+<br>
+
 - 서브쿼리의 반환값은 173,170 이다. 
 - 173이상 또는 170이상이므로 170이상을 만족하는 회원정보가 검색된다. 
 - some을 사용하여 동일한 결과를 나타낼 수 있다 .
@@ -244,6 +274,9 @@ select * from usertbl where height >= some (
     select height from usertbl where addr = '경남'
 );
 ```
+
+<br>
+
 
 
 
